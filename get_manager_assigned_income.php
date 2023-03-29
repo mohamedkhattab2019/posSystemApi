@@ -40,6 +40,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 		}
 	
 	}
+	else if(!empty($_POST['depart_id'])){
+		$depart_id = $_POST['depart_id'];
+		try {
+			$sql = "SELECT * FROM post_system.manager_assigned_income WHERE  Assigned_To = $depart_id"; 
+			$result = $conn->query($sql);
+			$rows = array();
+			if($result)
+			{
+				while($row = mysqli_fetch_assoc($result))
+				{
+					$rows[] = $row;
+				}
+				print json_encode($rows);
+			}
+		} catch (Exception $e) {
+			$msg["status"] = "Registeration error";
+		}
+	
+	}
 	else {
 		
 		try {
