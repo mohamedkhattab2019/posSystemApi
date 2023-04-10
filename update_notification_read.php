@@ -24,10 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 	
 	if(isset($_POST['depart_id']) && isset($_POST['Income_ID'])){
 		$depart_id 	        = $_POST['depart_id'];
-		$Income_ID 		= $_POST['Income_ID'];
-		$sql = "UPDATE post_system.manager_assigned SET notification_read = 1 WHERE Income_ID = '$Income_ID' AND Assigned_To = '$depart_id'"; 
-		$result = $conn->query($sql);
-		echo $result;
+        $Income_ID 		= $_POST['Income_ID'];
+        if ($depart_id 	==1) {
+            $sql = "UPDATE post_system.income SET seen_by_manager = 1 WHERE Income_ID = '$Income_ID'"; 
+            $result = $conn->query($sql);
+            echo $result. "Updated Successfully";
+        }
+        else {
+            $sql = "UPDATE post_system.manager_assigned SET notification_read = 1 WHERE Income_ID = '$Income_ID' AND Assigned_To = '$depart_id'"; 
+            $result = $conn->query($sql);
+            echo $result. "Updated Successfully";
+        }
 	}
 	
 	else{
